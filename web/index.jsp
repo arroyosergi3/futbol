@@ -3,10 +3,12 @@
 <html>
 <head>
     <title>Clasificación Liga de Fútbol</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
 </head>
 <body>
 <h1>Clasificación Actual</h1>
-<table border="1">
+<table class="table">
     <tr>
         <th>#</th>
         <th>Equipo</th>
@@ -23,14 +25,14 @@
         ResultSet rs = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/futbol", "usuario", "contraseña");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/futbol", "dwes", "abc123.");
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT * FROM equipo ORDER BY puntos DESC");
             int puesto = 1;
             while (rs.next()) {
                 out.println("<tr>");
-                out.println("<td>" + puesto++ + "</td>");
-                out.println("<td><img src='images/" + rs.getString("id") + ".png' alt='" + rs.getString("nombre") + "'/> " + rs.getString("nombre") + "</td>");
+                out.println("<td>" + puesto++ + "</td>");   
+                out.println("<td><img src='" + rs.getString("id") + ".png'/> " + rs.getString("nombre") + "</td>");
                 out.println("<td>" + rs.getInt("puntos") + "</td>");
                 out.println("<td>" + rs.getInt("v") + "</td>");
                 out.println("<td>" + rs.getInt("e") + "</td>");
@@ -48,6 +50,13 @@
         }
     %>
 </table>
-<a href="admin.jsp">Entrar como Administrador</a>
+<br>
+<br>
+<br>
+<br>
+<form action="s1comprobarAdmin" method="post">
+    <input type="password" name="admin" placeholder="Introduce la contraseña">
+    <input type="submit" class="btn btn-primary" value="Administrador">
+</form>
 </body>
 </html>
